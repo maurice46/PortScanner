@@ -1,0 +1,52 @@
+Milestone #1
+
+What is a socket in Python?
+An endpoint that allows two devices or programs to communicate with
+each other over a network.
+
+What is the difference between TCP and UDP?
+TCP establishes a connection before exchanging data, ensuring data arrives reliably, in order, and retransmits missing data. 
+UDP sends data without establishing a connection first, prioritizing speed and low overhead over guaranteed delivery. 
+
+What happens when a computer attempts to connect to a port?
+    1. Your computer sends a SYN packet (TCP packet with a SYN flag enabled)
+    2. The destination computer responds:
+        a. Open Port: The server responds with SYN-ACK (SYN -> SYN-ACK)
+        b. Closed Port: The server responds with RST (Reset: SYN -> RST-ACK)
+        c. Filtered Port: Your reqest receives no response, or an error message (SYN -> No response / ICMP error)
+    3. TCP establishes the connection 
+        - If the port is open, TCP completes the 'three-way handshake'
+        - SYN (Request)
+        - SYN-ACK (Acknowledgement)
+        - ACK (Confirmation)
+        - After this, the two computers can exchange data 
+
+What does socket.connect_ex() do?
+It attempts to establish a connection to a specified IP address and port
+- connect() raises an exception if the connection fails
+- connection_ex() returns an error code instead of raising an exception for connection errors 
+
+What is the difference between an open port, closed port and filtered port?
+- A port is a communication endpoint associated with a particular network service
+- Port 21 = FTP, Port 22 = SSH, 25 = SMTP, 53 = DNS, exception
+- Can have different states depending on whether a service is listening and how the network responds 
+- Open Port means a service is listening and accepting connections
+- Closed Port means the destination computer is reachable, but no service is accepting connections 
+- Filtered Port means a firewall or network device is preventing you from determining whether the port is open or closed 
+
+Your first coding objective:
+
+Create a function that attempts to connect to one IP address on one specified TCP port and 
+determines whether the connection succeeds.
+
+Use 127.0.0.1 for your initial testing. Only scan systems you own or have permission to test.
+How we'll work together
+- You write the code.
+- You show me your implementation.
+- I'll review your logic, point out bugs, and explain improvements.
+- I'll give you hints before giving you solutions.
+- We'll move to the next milestone when you understand the current one.
+
+I also want you to eventually be able to explain your project in a technical interview, 
+including why you chose certain data structures, how TCP connections work, and how 
+multithreading improves performance.
