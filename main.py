@@ -30,7 +30,8 @@ if __name__ == "__main__":
     main()
 
 
-scanner = PortScanner()
-scanner.scan_port("127.0.0.1")
-
+scanner = PortScanner("127.0.0.1")
+scanner.scan_range(18, 24)
+results = scanner.get_results()
+print(results)
 
