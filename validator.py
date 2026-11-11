@@ -1,24 +1,26 @@
-"""
-Validates IP addresses and port ranges
-
-Don't want the scanner attempting to process invalid input
-- valid IPv4 addresses have four octets (192.168.1.1)
-- TCP/UDP ports range from 0-65535
-- the starting point shouldn't exceed the ending port
-
-"""
+""" Validates IP addresses and port ranges """
 
 import ipaddress
 
-def validate_ip(target):
-    # Check whether the supplied IP address is valid
-    pass
+def validate_ip(address):
+    try:
+        valid_ip = ipaddress.ip_address(address)
+        return isinstance(valid_ip, ipaddress.IPv4Address)
+    
+    except ValueError: return False
 
 def validate_port(port):
-    # Check whether a port is within the valid range
-    pass
+    if not isinstance(port, int):
+        return False
+
+    return 1 <= port <= 65535
 
 def validate_port_range(start_port, end_port):
-    # Check whether the start and end ports make sense
-    pass
+    if not validate_port(start_port):
+        return False
+
+    if not validate_port(end_port):
+        return False
+
+    return start_port <= end_port
 

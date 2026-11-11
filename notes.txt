@@ -43,6 +43,11 @@ print(results)
 
 The status for port 8000 is considered "Open" since it's being used to host an http server.
 
+
+ipaddress.ip_address()
+- returns an IPv4 or IPv6 object depending on the IP address passed as argument
+- ValueError is raised if address does not represent a valid address 
+
 Milestone #3 - Input Validation
 Goal: Application doesn't crash when someone enters invalid input 
 - Validate IP addresses
