@@ -1,11 +1,8 @@
-
-"""Unit tests for service_lookup.py"""
+"""unit tests for service_lookup.py"""
 
 import unittest
 from unittest.mock import patch
-
 from service_lookup import ServiceLookup
-
 
 class TestServiceLookup(unittest.TestCase):
     # new instance for each test
