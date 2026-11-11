@@ -49,6 +49,22 @@ ipaddress.ip_address()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Milestone #4 - Service Identification and Output
 Goal: Produce a useful scan report 
 - Implement service lookup

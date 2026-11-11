@@ -1,4 +1,4 @@
-""" Validates IP addresses and port ranges """
+""" validates IP addresses and port ranges """
 
 import ipaddress
 

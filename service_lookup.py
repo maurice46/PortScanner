@@ -1,21 +1,23 @@
-"""
-Identifies common services 
-
-A port # is commonly associated with a particular network service 
-FTP - 20/21 | SSH - 22 | Telent - 23 | SMTP - 25 | DNS - 53 | HTTP - 80
-POP3 - 110 | HTTPS - 443 | MySQL - 3306 | RDP - 3389
-
-Python already has a useful socket function for this: socket.getservbyport().
-
-Your responsibility is to create a function that accepts a port 
-number and returns its associated service name.
-
-"""
+""" identifies common services """
 
 import socket
 
-def get_service(port):
-    # Look up the service associated with a port
-    # Handle ports without a known service
-    pass
+class ServiceLookup:
+    def __init__(self):
+        self.known_services = {
+            20: "FTP (Data)",
+            21: "FTP (Control)",
+            22: "SSH",
+            23: "Telnet",
+            25: "SMTP",
+            53: "DNS",
+            80: "HTTP",
+            110: "POP3",
+            143: "IMAP",
+            443: "HTTPS",
+            3306: "MySQL",
+            3389: "RDP"
+        }
 
+    def get_unknown_service(self, port):
+        service = socket.getservbyport(port)
