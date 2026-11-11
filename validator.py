@@ -10,7 +10,7 @@ def validate_ip(address):
     except ValueError: return False
 
 def validate_port(port):
-    if not isinstance(port, int):
+    if not isinstance(port, int) or isinstance(port, bool):
         return False
 
     return 1 <= port <= 65535
