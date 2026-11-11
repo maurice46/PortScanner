@@ -24,8 +24,6 @@ class PortScanner:
             # port status 
             if tcp_connection == 0: # open port 
                 return "Open"
-            elif tcp_connection == 10061: # Windows connection refused
-                return "Closed"
             else: # closed or filtered port OR timeout
                 return "Not Open"
             
