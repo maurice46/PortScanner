@@ -49,3 +49,15 @@ class PortScanner:
     def get_results(self): return self.results
 
 
+
+
+"""
+TESTING SCANNER
+Serving HTTP on 127.0.0.01 port 8000
+Ran 'python -m http.server 8000 --bind 127.0.0.1' in Powershell
+"""
+scanner = PortScanner("127.0.0.1")
+scanner.scan_range(7999, 8001)
+results = scanner.get_results()
+print(results)
+

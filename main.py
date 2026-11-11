@@ -29,9 +29,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-scanner = PortScanner("127.0.0.1")
-scanner.scan_range(7999, 8001)
-results = scanner.get_results()
-print(results)
-
