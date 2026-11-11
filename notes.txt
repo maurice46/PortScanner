@@ -33,7 +33,7 @@ What is the difference between an open port, closed port and filtered port?
 Ran 'python -m http.server 8000 --bind 127.0.0.1' in Powershell.
 Serving HTTP on 127.0.0.01 port 8000
 
-In VS Code, in terminal, ran:
+TESTING SCANNER:
 scanner = PortScanner("127.0.0.1")
 scanner.scan_range(7999, 8001)
 results = scanner.get_results()
@@ -43,18 +43,11 @@ print(results)
 
 The status for port 8000 is considered "Open" since it's being used to host an http server.
 
-
 ipaddress.ip_address()
 - returns an IPv4 or IPv6 object depending on the IP address passed as argument
 - ValueError is raised if address does not represent a valid address 
 
-Milestone #3 - Input Validation
-Goal: Application doesn't crash when someone enters invalid input 
-- Validate IP addresses
-- Validate port numbers
-- Validate port ranges
-- Handle invalid user input
-- Handle connection errors
+
 
 Milestone #4 - Service Identification and Output
 Goal: Produce a useful scan report 
