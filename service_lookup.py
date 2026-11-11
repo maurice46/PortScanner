@@ -19,8 +19,19 @@ class ServiceLookup:
             3389: "RDP"
         }
 
-    def get_unknown_service(self, port):
-        service = socket.getservbyport(port)
+    def get_service(self, port):
+        # known port
+        if port in self.known_services:
+            return self.known_services[port]
 
+        # unknown port 
+        try:
+            service = socket.getservbyport(port, "tcp")
+        except OSError:
+            return "Unknown"
+
+        self.known_services[port] = service
+
+        return service
 
 
