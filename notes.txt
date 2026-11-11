@@ -1,12 +1,8 @@
-Milestone #1
+Socket: An endpoint that allows two devices or programs to communicate with each other over a network.
 
-What is a socket in Python?
-An endpoint that allows two devices or programs to communicate with
-each other over a network.
+TCP: Establishes a connection before exchanging data, ensuring data arrives reliably, in order, and retransmits missing data. 
 
-What is the difference between TCP and UDP?
-TCP establishes a connection before exchanging data, ensuring data arrives reliably, in order, and retransmits missing data. 
-UDP sends data without establishing a connection first, prioritizing speed and low overhead over guaranteed delivery. 
+UDP: Sends data without establishing a connection first, prioritizing speed and low overhead over guaranteed delivery. 
 
 What happens when a computer attempts to connect to a port?
     1. Your computer sends a SYN packet (TCP packet with a SYN flag enabled)
@@ -21,8 +17,8 @@ What happens when a computer attempts to connect to a port?
         - ACK (Confirmation)
         - After this, the two computers can exchange data 
 
-What does socket.connect_ex() do?
-It attempts to establish a connection to a specified IP address and port
+socket.connect_ex()
+- it attempts to establish a connection to a specified IP address and port
 - connect() raises an exception if the connection fails
 - connection_ex() returns an error code instead of raising an exception for connection errors 
 
@@ -34,19 +30,59 @@ What is the difference between an open port, closed port and filtered port?
 - Closed Port means the destination computer is reachable, but no service is accepting connections 
 - Filtered Port means a firewall or network device is preventing you from determining whether the port is open or closed 
 
-Your first coding objective:
+Ran 'python -m http.server 8000 --bind 127.0.0.1' in Powershell.
+Serving HTTP on 127.0.0.01 port 8000
 
-Create a function that attempts to connect to one IP address on one specified TCP port and 
-determines whether the connection succeeds.
+In VS Code, in terminal, ran:
+scanner = PortScanner("127.0.0.1")
+scanner.scan_range(7999, 8001)
+results = scanner.get_results()
+print(results)
 
-Use 127.0.0.1 for your initial testing. Only scan systems you own or have permission to test.
-How we'll work together
-- You write the code.
-- You show me your implementation.
-- I'll review your logic, point out bugs, and explain improvements.
-- I'll give you hints before giving you solutions.
-- We'll move to the next milestone when you understand the current one.
+[{'port': 7999, 'status': 'Not Open'}, {'port': 8000, 'status': 'Open'}, {'port': 8001, 'status': 'Not Open'}]
 
-I also want you to eventually be able to explain your project in a technical interview, 
-including why you chose certain data structures, how TCP connections work, and how 
-multithreading improves performance.
+The status for port 8000 is considered "Open" since it's being used to host an http server.
+
+Milestone #3 - Input Validation
+Goal: Application doesn't crash when someone enters invalid input 
+- Validate IP addresses
+- Validate port numbers
+- Validate port ranges
+- Handle invalid user input
+- Handle connection errors
+
+Milestone #4 - Service Identification and Output
+Goal: Produce a useful scan report 
+- Implement service lookup
+- Organize scan results
+- Display results in a readable table
+- Export results to CSV
+
+Milestone #5 - Multithreading (Advanced)
+Goal: Improve scannning speed without sacrificing reliability 
+- Learn Python's threading module
+- Understand why sequential scanning is slower
+- Use multiple threads to scan ports concurrently
+- Prevent race conditions when storing results
+- Compare sequential and threaded scan times
+
+Milestone #6 - Final Improvements
+Goal: Have a polished command-line networking utility
+- Add a command-line argument using argparse
+- Add scan duration measurements
+- Add logging
+- Improve error handling
+- Write unit tests
+- Create a Github README with examples
+
+
+
+
+
+
+
+
+
+
+
+
