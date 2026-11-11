@@ -24,26 +24,29 @@ class PortScanner:
             # port status 
             if tcp_connection == 0: # open port 
                 return "Open"
+            elif tcp_connection == 10061: # Windows connection refused
+                return "Closed"
             else: # closed or filtered port OR timeout
                 return "Not Open"
             
-        except (ValueError, IndexError, KeyError):
-            return "Error"
+        except socket.timeout: return "Timeout"
+
+        except OSError: return "Error"
             
-        finally: 
-            sock.close()
+        finally: sock.close()
 
     def scan_range(self, start_port, end_port): # loop through the requested range 
         # scan each port and store results (ie. ports 3-5) 
-        port_range = range(start_port, end_port + 1) # +1 includes last port
+        for port in range(start_port, end_port + 1): # +1 includes last port
 
-        for port in port_range:
-            if port not in self.results:
-                self.results.append({
-                    "port": port,
-                    "status": self.scan_port(port)
-                })
+            # check whether this port has already been scanned
+            if any(results['port'] == port for results in self.results):
+                continue
 
+            self.results.append({
+                "port": port,
+                "status": self.scan_port(port)
+            })
 
     def get_results(self): return self.results
 
