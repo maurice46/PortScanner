@@ -3,6 +3,9 @@
 import ipaddress
 
 def validate_ip(address):
+    if not isinstance(address, str):
+        return False
+    
     try:
         valid_ip = ipaddress.ip_address(address)
         return isinstance(valid_ip, ipaddress.IPv4Address)

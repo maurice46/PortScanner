@@ -14,6 +14,8 @@ class ServiceLookup:
             80: "http"
         }
 
+        self.errors = (OSError, OverflowError)
+
     def get_service(self, port):
         # known port
         if port in self.services:
@@ -22,8 +24,8 @@ class ServiceLookup:
         # unknown port 
         try:
             service = socket.getservbyport(port, "tcp")
-        except OSError:
-            return "Unknown"
+        except self.errors:
+            service = "Unknown"
 
         self.services[port] = service
 

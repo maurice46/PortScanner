@@ -2,15 +2,22 @@
 
 import csv
 
-def display_results(results):
+def display_results(results, show_all=False):
     print("             TCP Port Scans")
     print("-" * 40)
 
-    for result in results:
+    ports = results if show_all else [res for res in results if res['status'] == "Open"]
+
+    if not ports:
+        print("No open ports found.")
+
+    for result in ports:
         port = result['port']
         status = result['status']
         service = result['service']
-        print(f"Port: {port} | {service} | Status: {status}\n")
+        print(f"Port: {port} | {service} | Status: {status}")
+
+    print(f"Scanned {len(ports)} ports.")
 
 
 def save_results_as_csv(results, filename):
