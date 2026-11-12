@@ -7,7 +7,8 @@ def validate_ip(address):
         valid_ip = ipaddress.ip_address(address)
         return isinstance(valid_ip, ipaddress.IPv4Address)
     
-    except ValueError: return False
+    except ValueError: 
+        return False
 
 def validate_port(port):
     if not isinstance(port, int) or isinstance(port, bool):

@@ -4,7 +4,7 @@ import socket
 
 class ServiceLookup:
     def __init__(self):
-        self.known_services = {
+        self.services = {
             20: "FTP (Data)",
             21: "FTP (Control)",
             22: "SSH",
@@ -21,8 +21,8 @@ class ServiceLookup:
 
     def get_service(self, port):
         # known port
-        if port in self.known_services:
-            return self.known_services[port]
+        if port in self.services:
+            return self.services[port]
 
         # unknown port 
         try:
@@ -30,8 +30,8 @@ class ServiceLookup:
         except OSError:
             return "Unknown"
 
-        self.known_services[port] = service
+        self.services[port] = service
 
-        return service
+        return service if service else "No Service Found."
 
-
+ 

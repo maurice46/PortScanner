@@ -1,27 +1,18 @@
-"""
-Displays and saves scan results
-
-Module handles presenting the information, think about what information each result should contain
-Maybe use a dictionary?
-
-Example: 
-{
-    "port": 443,
-    "state": "OPEN",
-    "service": "HTTPS"
-}
-
-"""
+""" displays and saves scan results """
 
 import csv
 
 def display_results(results):
-    # Display results in an organized table
-    pass
+    print("   TCP Port Scans   ")
+    print("-" * 20)
+
+    for result in results:
+        port = result['port']
+        status = result['status']
+        print(f"Port {port}: {status}")
 
 
-def save_results(results, filename):
-    # Export results to a CSV file
-    pass
-
+def save_results_as_csv(results, filename): 
+    with open(filename, 'w', newline='') as csvfile:
+        
 
