@@ -2,10 +2,6 @@
 
 A simple, multithreaded TCP port scanner written in Python. Give it an IPv4 address and a port range, and it reports which ports are open, closed, or filtered, identifies the common service on each open port, and can save the results to a CSV file.
 
-Built with the standard library only, so there is nothing to install.
-
-> **Legal and ethical use:** Only scan hosts you own or have explicit permission to test. Unauthorized port scanning may violate laws or your network's terms of service. This project is for learning and for testing your own systems.
-
 ## Features
 
 - Scans any IPv4 address across a custom port range (1-65535)
@@ -21,7 +17,6 @@ Built with the standard library only, so there is nothing to install.
 ## Requirements
 
 - Python 3.9 or newer (uses `ThreadPoolExecutor.shutdown(cancel_futures=True)`)
-- No third-party packages
 
 ## Usage
 
