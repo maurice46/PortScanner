@@ -76,7 +76,7 @@ port,service,status
 
 ## How it works
 
-The scanner uses a TCP connect scan: for each port in the range it opens a new socket with a timeout, calls `connect_ex()`, and interprets the return code. A successful connection means the port is open, a refusal means it is closed, and a timeout suggests a firewall is dropping packets. Ports are scanned one at a time, and ports that were already scanned are skipped.
+The scanner uses a TCP connect scan: for each port in the range it opens a new socket with a timeout, calls `connect_ex()`, and interprets the return code. A successful connection means the port is open, a refusal means it is closed, and a timeout could mean a firewall is dropping packets. Ports are scanned one at a time, and ports that were already scanned are skipped.
 
 Service names come from a small built-in table of common ports, with `socket.getservbyport()` as a fallback. Names are the conventional service for that port number, not a verified identification of what is actually running, which is why only open ports are labeled.
 
