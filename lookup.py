@@ -32,6 +32,6 @@ class ServiceLookup:
 
         self.services[port] = service
 
-        return service if service else "No Service Found."
+        return service if service else "Unknown"
 
  

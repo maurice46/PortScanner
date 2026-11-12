@@ -1,12 +1,14 @@
 """ TCP port scanning """
 
 import socket
+import errno
 
 class PortScanner:
     def __init__(self, target, timeout=1):
         self.target_ip = target
         self.connection_timeout = timeout
         self.results = []
+        self.scanned = set() # fast lookup of ports already scanned
 
     def scan_port(self, port): # attempt a TCP connection to one port
 
@@ -24,21 +26,29 @@ class PortScanner:
             # port status 
             if tcp_connection == 0: # open port 
                 return "Open"
-            else: # closed or filtered port OR timeout
-                return "Not Open"
-            
-        except socket.timeout: return "Timeout"
 
-        except OSError: return "Error"
+            # connection actively refused -> nothing listening
+            if tcp_connection in (errno.ECONNREFUSED, 10061):
+                return "Closed"
+
+            # timeout/no response/blocked -> likely firewalled
+            return "Filtered"
             
-        finally: sock.close()
+        except socket.timeout:
+            return "Filtered"
+
+        except OSError: 
+            return "Error"
+            
+        finally: 
+            sock.close()
 
     def scan_range(self, start_port, end_port): # loop through the requested range 
         # scan each port and store results (ie. ports 3-5) 
         for port in range(start_port, end_port + 1): # +1 includes last port
 
-            # check whether this port has already been scanned
-            if any(results['port'] == port for results in self.results):
+            # skip ports already scanned
+            if port in self.scanned:
                 continue
 
             self.results.append({
@@ -46,6 +56,9 @@ class PortScanner:
                 "status": self.scan_port(port)
             })
 
-    def get_results(self): return self.results
+            self.scanned.add(port)
+
+    def get_results(self): 
+        return self.results
 
 

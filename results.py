@@ -1,4 +1,4 @@
-""" displays and saves scan results """
+""" Displays and saves scan results """
 
 import csv
 
@@ -9,15 +9,17 @@ def display_results(results):
     for result in results:
         port = result['port']
         status = result['status']
-        print(f"Port {port}: {status}")
-
-def save_results_as_csv(results, filename): 
-    with open(filename, 'w', newline='') as csvfile:
-        port_writer = csv.writer(csvfile)
-
-        for result in results:
-            port = result['port']
-            status = result['status']
-            port_writer.writerow(f"Port {port}: {status}")
+        service = result['service']
+        print(f"Port: {port} | {service} | Status: {status}\n")
 
 
+def save_results_as_csv(results, filename):
+    fieldnames = ["port", "service", "status"]
+
+    with open(filename, "w", newline="") as csvfile:
+        port_writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        port_writer.writeheader()
+        port_writer.writerows(results)
+
+    
