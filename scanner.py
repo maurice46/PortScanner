@@ -23,7 +23,6 @@ class PortScanner:
             # attempt TCP connection
             tcp_connection = sock.connect_ex((self.target_ip, port))
 
-            # port status 
             if tcp_connection == 0: # open port 
                 return "Open"
 
@@ -31,25 +30,20 @@ class PortScanner:
             if tcp_connection in (errno.ECONNREFUSED, 10061):
                 return "Closed"
 
-            # timeout/no response/blocked -> likely firewalled
-            return "Filtered"
+            return "Filtered" # timeout/no response/blocked -> likely firewalled
             
-        except socket.timeout:
-            return "Filtered"
+        except socket.timeout: return "Filtered"
 
-        except OSError: 
-            return "Error"
+        except OSError: return "Error"
             
-        finally: 
-            sock.close()
+        finally: sock.close()
 
     def scan_range(self, start_port, end_port): # loop through the requested range 
         # scan each port and store results (ie. ports 3-5) 
         for port in range(start_port, end_port + 1): # +1 includes last port
 
             # skip ports already scanned
-            if port in self.scanned:
-                continue
+            if port in self.scanned: continue
 
             self.results.append({
                 "port": port,
@@ -58,7 +52,6 @@ class PortScanner:
 
             self.scanned.add(port)
 
-    def get_results(self): 
-        return self.results
+    def get_results(self): return self.results
 
 
