@@ -1,7 +1,7 @@
 from scanner import PortScanner
 from validator import validate_ip, validate_port_range
-from service_lookup import get_service
-from results import display_results, save_results
+from lookup import ServiceLookup
+from results import display_results, save_results_as_csv
 
 
 def main():

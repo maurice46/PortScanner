@@ -2,11 +2,11 @@
 
 import unittest
 from unittest.mock import patch
-from service_lookup import ServiceLookup
+from lookup import ServiceLookup
 
 class TestServiceLookup(unittest.TestCase):
     # new instance for each test
-    def setUp(self): 
+    def setup(self): 
         self.lookup = ServiceLookup()
 
     # known service testing 
