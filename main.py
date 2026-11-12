@@ -22,7 +22,7 @@ def main():
 
     # 4. validate port range
     if not validate_port_range(start_port=first_port, end_port=last_port):
-        print("Invalid port range (1-65534, start <= end).")
+        print("Invalid port range (1-65535, start <= end).")
         return
 
     # 5. create scanner
@@ -45,12 +45,14 @@ def main():
 
     # 10. save results
     save_choice = input("\nSave results as CSV? (y/n): ").lower()
-    assert(save_choice, chr)
 
     if save_choice == "y":
         filename = input("Enter filename (ie. scan_results.csv): ")
         save_results_as_csv(results=results, filename=filename)
         print(f"Results saved to {filename}")
+    elif save_choice != "n":
+        print("Invalid choice.")
+
 
 if __name__ == "__main__":
     main()

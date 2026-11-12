@@ -1,5 +1,0 @@
-# stores configuration and constants
-
-
-
-

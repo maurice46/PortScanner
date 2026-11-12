@@ -5,18 +5,13 @@ import socket
 class ServiceLookup:
     def __init__(self):
         self.services = {
-            20: "FTP (Data)",
-            21: "FTP (Control)",
-            22: "SSH",
-            23: "Telnet",
-            25: "SMTP",
-            53: "DNS",
-            80: "HTTP",
-            110: "POP3",
-            143: "IMAP",
-            443: "HTTPS",
-            3306: "MySQL",
-            3389: "RDP"
+            20: "ftp-data",
+            21: "ftp",
+            22: "ssh",
+            23: "telnet",
+            25: "smtp",
+            53: "dns",
+            80: "http"
         }
 
     def get_service(self, port):
@@ -32,6 +27,6 @@ class ServiceLookup:
 
         self.services[port] = service
 
-        return service if service else "Unknown"
+        return service 
 
  

@@ -3,8 +3,8 @@
 import csv
 
 def display_results(results):
-    print("   TCP Port Scans   ")
-    print("-" * 20)
+    print("             TCP Port Scans")
+    print("-" * 40)
 
     for result in results:
         port = result['port']

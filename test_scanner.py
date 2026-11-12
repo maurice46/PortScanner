@@ -13,11 +13,16 @@ display_results(results)
 """
 OUTPUT:
 
-   TCP Port Scans   
---------------------
-Port 7999: Not Open
-Port 8000: Open
-Port 8001: Not Open
+Enter IPv4 address: 127.0.0.1
+Enter first port: 7999
+Enter last port: 8001
+             TCP Port Scans
+----------------------------------------
+Port: 7999 | Unknown | Status: Filtered
+
+Port: 8000 | Unknown | Status: Open
+
+Port: 8001 | Unknown | Status: Filtered
 """
 
 # should create example.csv
