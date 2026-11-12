@@ -1,4 +1,10 @@
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from scanner import PortScanner
+from lookup import ServiceLookup
 from results import display_results, save_results_as_csv
 
 """
@@ -6,9 +12,14 @@ TESTING SCANNER: Serving HTTP on 127.0.0.1 port 8000
 Ran 'python -m http.server 8000 --bind 127.0.0.1' in Powershell
 """
 scanner = PortScanner("127.0.0.1")
-scanner.scan_range(7999, 8001)
+lookup = ServiceLookup()
 
+scanner.scan_range(7999, 8001)
 results = scanner.get_results()
+
+for result in results: 
+    result['service'] = lookup.get_service(result['port'])
+    
 display_results(results)
 """
 OUTPUT:
