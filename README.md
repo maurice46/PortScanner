@@ -1,12 +1,15 @@
 # Python TCP Port Scanner
 
-A simple, multithreaded TCP port scanner written in Python. Give it an IPv4 address and a port range, and it reports which ports are open, closed, or filtered, identifies the common service on each open port, and can save the results to a CSV file.
+A simple TCP port scanner written in Python. Give it an IPv4 address and a port range, and it reports which ports are open, closed, or filtered, identifies the common service on each open port, and can save the results to a CSV file.
+
+Built with the standard library only, so there is nothing to install.
+
+> **Legal and ethical use:** Only scan hosts you own or have explicit permission to test. Unauthorized port scanning may violate laws or your network's terms of service. This project is for learning and for testing your own systems.
 
 ## Features
 
 - Scans any IPv4 address across a custom port range (1-65535)
-- Concurrent scanning with a thread pool (100 workers by default), so large ranges finish quickly
-- Classifies each port as `Open`, `Closed`, `Filtered`, `Unreachable`, or `Error`
+- Classifies each port as `Open`, `Closed`, `Filtered`, or `Error`
 - Looks up service names (ssh, http, etc.) for open ports only
 - Shows only open ports by default, with an option to show everything and a summary count
 - Exports results to CSV
@@ -16,7 +19,8 @@ A simple, multithreaded TCP port scanner written in Python. Give it an IPv4 addr
 
 ## Requirements
 
-- Python 3.9 or newer (uses `ThreadPoolExecutor.shutdown(cancel_futures=True)`)
+- Python 3.6 or newer
+- No third-party packages
 
 ## Usage
 
@@ -59,7 +63,6 @@ The example above is illustrative. Your output will depend on the target.
 | Open | The connection succeeded; something is listening |
 | Closed | The host actively refused the connection; nothing is listening |
 | Filtered | No response before the timeout, likely blocked by a firewall |
-| Unreachable | No route to the host or network |
 | Error | Any other socket error |
 
 ### CSV output
@@ -77,7 +80,7 @@ port,service,status
 ```
 .
 ├── main.py        # Interactive command-line flow
-├── scanner.py     # PortScanner: threaded TCP connect scanning
+├── scanner.py     # PortScanner: TCP connect scanning
 ├── lookup.py      # ServiceLookup: port number to service name
 ├── validator.py   # IP address and port range validation
 └── results.py     # Result display and CSV export
@@ -85,7 +88,7 @@ port,service,status
 
 ## How it works
 
-The scanner uses a TCP connect scan: for each port it calls `connect_ex()` on a new socket with a timeout and interprets the return code. A successful connection means the port is open, a refusal means it is closed, and a timeout suggests a firewall is dropping packets. Ports are scanned concurrently with `ThreadPoolExecutor`, and results are stored in a dictionary keyed by port so repeat scans skip ports that were already checked.
+The scanner uses a TCP connect scan: for each port in the range it opens a new socket with a timeout, calls `connect_ex()`, and interprets the return code. A successful connection means the port is open, a refusal means it is closed, and a timeout suggests a firewall is dropping packets. Ports are scanned one at a time, and ports that were already scanned are skipped.
 
 Service names come from a small built-in table of common ports, with `socket.getservbyport()` as a fallback. Names are the conventional service for that port number, not a verified identification of what is actually running, which is why only open ports are labeled.
 
@@ -93,18 +96,18 @@ Service names come from a small built-in table of common ports, with `socket.get
 
 - IPv4 only
 - TCP connect scans only (no SYN scans or UDP)
+- Ports are scanned sequentially, so large ranges with many filtered ports can take a long time (each unresponsive port waits for the timeout)
 - No banner grabbing or service fingerprinting
-- Very high worker counts or fast scans may trigger intrusion detection or rate limiting on the target network
 
 ## Customization
 
-`PortScanner` accepts two optional arguments in `scanner.py`:
+`PortScanner` accepts an optional timeout in seconds in `scanner.py`:
 
 ```python
-PortScanner(target, timeout=1, max_workers=100)
+PortScanner(target, timeout=1)
 ```
 
-Raise `timeout` for slow or distant hosts, and lower `max_workers` if you want a gentler scan.
+Raise it for slow or distant hosts, or lower it to finish faster on hosts that drop packets.
 
 ## License
 
